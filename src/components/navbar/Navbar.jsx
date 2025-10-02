@@ -3,10 +3,16 @@ import { FiBell } from "react-icons/fi";
 import { FaRegUser } from "react-icons/fa6";
 import { useEffect, useRef, useState } from "react";
 import Sidebar from "./../sidebar/Sidebar";
+import { useLocation } from "react-router-dom";
 
 function Navbar() {
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const sidebarRef = useRef(null);
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    setIsMobileSidebarOpen(false);
+  }, [pathname]);
 
   useEffect(() => {
     const handleClickOutside = (e) => {
