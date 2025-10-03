@@ -10,8 +10,16 @@ html {
   scroll-behavior: smooth;
 }
 
-body {
-  font-family: 'Poppins', sans-serif;
+body.lang-en {
+  font-family: "Poppins", sans-serif;
+}
+
+body.lang-ar {
+  font-family: "Cairo", sans-serif;
+}
+
+body.lang-ur {
+  font-family: "Noto Nastaliq Urdu", serif;
 }
 
 @layer components {

@@ -1,5 +1,24 @@
 {
-  "welcome": "Welcome",
-  "login": "Login",
-  "logout": "Logout"
+  "general": {
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "clients": "Clients",
+    "vehicles": "Vehicles",
+    "trips": "Trips",
+    "transporters": "Transporters",
+    "directions": "Directions",
+    "users": "Users",
+    "settings": "Settings"
+  },
+  "dashboard": {},
+  "clients": {},
+  "vehicles": {},
+  "trips": {},
+  "directions": {},
+  "users": {},
+  "settings": {}
 }

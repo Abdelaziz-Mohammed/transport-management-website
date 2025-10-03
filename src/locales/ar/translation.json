@@ -1,5 +1,24 @@
 {
-  "welcome": "مرحبًا بك",
-  "login": "تسجيل الدخول",
-  "logout": "تسجيل الخروج"
+  "general": {
+    "login": "تسجيل الدخول",
+    "register": "إنشاء حساب",
+    "logout": "تسجيل الخروج"
+  },
+  "navigation": {
+    "dashboard": "لوحة التحكم",
+    "clients": "العملاء",
+    "vehicles": "المركبات",
+    "trips": "الرحلات",
+    "transporters": "الناقلين",
+    "directions": "الاتجاهات",
+    "users": "المستخدمون",
+    "settings": "الإعدادات"
+  },
+  "dashboard": {},
+  "clients": {},
+  "vehicles": {},
+  "trips": {},
+  "directions": {},
+  "users": {},
+  "settings": {}
 }

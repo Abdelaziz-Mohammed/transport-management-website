@@ -1,5 +1,24 @@
 {
-  "welcome": "خوش آمدید",
-  "login": "لاگ ان کریں",
-  "logout": "لاگ آوٹ"
+  "general": {
+    "login": "لاگ ان کریں",
+    "register": "رجسٹر کریں",
+    "logout": "لاگ آؤٹ"
+  },
+  "navigation": {
+    "dashboard": "ڈیش بورڈ",
+    "clients": "کلائنٹس",
+    "vehicles": "گاڑیاں",
+    "trips": "سفر",
+    "transporters": "ٹرانسپورٹرز",
+    "directions": "ہدایات",
+    "users": "صارفین",
+    "settings": "ترتیبات"
+  },
+  "dashboard": {},
+  "clients": {},
+  "vehicles": {},
+  "trips": {},
+  "directions": {},
+  "users": {},
+  "settings": {}
 }

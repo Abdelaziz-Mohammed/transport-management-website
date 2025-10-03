@@ -50,7 +50,9 @@ function Navbar() {
       <div
         className={`md:hidden fixed inset-y-0 h-screen left-0 z-50 w-full bg-black/40 shadow-xl
           ${
-            isMobileSidebarOpen ? "translate-x-0" : "-translate-x-full"
+            isMobileSidebarOpen
+              ? "translate-x-0 opacity-100"
+              : "-translate-x-full opacity-0"
           } hoverEffect`}
       >
         <div ref={sidebarRef} className="w-fit">

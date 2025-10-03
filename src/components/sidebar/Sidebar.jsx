@@ -1,9 +1,77 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { logoImg } from "./../../assets/index.js";
 import LanguageToggler from "./../languageToggler/LanguageToggler";
-import { navItems } from "../../constants/data";
+import {
+  MdOutlineDashboard,
+  MdOutlineTour,
+  MdOutlineLogout,
+} from "react-icons/md";
+import {
+  FaRegUser,
+  FaUsers,
+  FaCarSide,
+  FaRoute,
+  FaTruck,
+} from "react-icons/fa";
+import { FaGear } from "react-icons/fa6";
+import { useTranslation } from "react-i18next";
+import { useAuth } from "../../context/AuthContext.jsx";
 
 function Sidebar() {
+  const { logout } = useAuth();
+  const { t } = useTranslation();
+
+  const navItems = [
+    {
+      id: 1,
+      title: t("navigation.dashboard"),
+      link: "/dashboard",
+      icon: <MdOutlineDashboard className="text-lg" />,
+    },
+    {
+      id: 2,
+      title: t("navigation.clients"),
+      link: "/clients",
+      icon: <FaUsers className="text-lg" />,
+    },
+    {
+      id: 3,
+      title: t("navigation.vehicles"),
+      link: "/vehicles",
+      icon: <FaCarSide className="text-lg" />,
+    },
+    {
+      id: 4,
+      title: t("navigation.trips"),
+      link: "/trips",
+      icon: <MdOutlineTour className="text-lg" />,
+    },
+    {
+      id: 5,
+      title: t("navigation.transporters"),
+      link: "/transporters",
+      icon: <FaTruck className="text-lg" />,
+    },
+    {
+      id: 6,
+      title: t("navigation.directions"),
+      link: "/directions",
+      icon: <FaRoute className="text-lg" />,
+    },
+    {
+      id: 7,
+      title: t("navigation.users"),
+      link: "/users",
+      icon: <FaRegUser className="text-md" />,
+    },
+    {
+      id: 8,
+      title: t("navigation.settings"),
+      link: "/settings",
+      icon: <FaGear className="text-md" />,
+    },
+  ];
+
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
@@ -33,6 +101,19 @@ function Sidebar() {
             </li>
           ))}
         </ul>
+        <div>
+          <button
+            onClick={async () => {
+              await logout();
+              navigate("/login");
+            }}
+            className="w-full text-black text-base px-3 py-1.5 font-medium rounded-md mt-4 flex items-center gap-2 
+            border border-neutral-300 transition-all duration-200 ease-in-out"
+          >
+            <MdOutlineLogout className="text-lg" />
+            {t("general.logout")}
+          </button>
+        </div>
       </div>
     </div>
   );
