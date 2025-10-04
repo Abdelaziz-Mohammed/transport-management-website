@@ -1,26 +1,28 @@
 import { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
-import { useTransporters } from "../../context/TransportersContext";
+import { useUsers } from "../../context/UsersContext";
 
-function CreateTransporter({ onClose }) {
-  const { createTransporter, loading } = useTransporters();
+function CreateUser({ onClose }) {
+  const { createUser, loading } = useUsers();
 
   const [formData, setFormData] = useState({
-    name: "",
-    idNumber: "",
-    mobileNumber: "",
+    firstName: "",
+    lastName: "",
     email: "",
-    transportType: "individual",
-    password: "",
+    mobileNumber: "",
+    transportType: "individual", // fix later
+    nationalId: "",
+    password: "", // fix later
   });
 
   const [formErrors, setFormErrors] = useState({
-    name: "",
-    idNumber: "",
-    mobileNumber: "",
+    firstName: "",
+    lastName: "",
     email: "",
-    transportType: "",
-    password: "",
+    mobileNumber: "",
+    transportType: "", // fix later
+    nationalId: "",
+    password: "", // fix later
   });
 
   const handleChange = (e) => {
@@ -31,40 +33,30 @@ function CreateTransporter({ onClose }) {
     e.preventDefault();
 
     // basic validation
-    if (!formData.name) {
+    if (!formData.firstName) {
       setFormErrors((prev) => ({
         ...prev,
-        name: "Please enter transporter name",
+        firstName: "Please enter your first name",
       }));
       return;
     } else {
-      setFormErrors((prev) => ({ ...prev, name: "" }));
+      setFormErrors((prev) => ({ ...prev, firstName: "" }));
     }
 
-    if (!formData.idNumber) {
+    if (!formData.lastName) {
       setFormErrors((prev) => ({
         ...prev,
-        idNumber: "Please enter transporter's ID number",
+        lastName: "Please enter your last name",
       }));
       return;
     } else {
-      setFormErrors((prev) => ({ ...prev, idNumber: "" }));
-    }
-
-    if (!formData.mobileNumber) {
-      setFormErrors((prev) => ({
-        ...prev,
-        mobileNumber: "Please enter transporter's mobile number",
-      }));
-      return;
-    } else {
-      setFormErrors((prev) => ({ ...prev, mobileNumber: "" }));
+      setFormErrors((prev) => ({ ...prev, lastName: "" }));
     }
 
     if (!formData.email) {
       setFormErrors((prev) => ({
         ...prev,
-        email: "Please enter transporter's email",
+        email: "Please enter your email",
       }));
       return;
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
@@ -77,14 +69,24 @@ function CreateTransporter({ onClose }) {
       setFormErrors((prev) => ({ ...prev, email: "" }));
     }
 
-    if (!formData.transportType) {
+    if (!formData.mobileNumber) {
       setFormErrors((prev) => ({
         ...prev,
-        transportType: "Please select transport type",
+        mobileNumber: "Please enter your mobile number",
       }));
       return;
     } else {
-      setFormErrors((prev) => ({ ...prev, transportType: "" }));
+      setFormErrors((prev) => ({ ...prev, mobileNumber: "" }));
+    }
+
+    if (!formData.nationalId) {
+      setFormErrors((prev) => ({
+        ...prev,
+        nationalId: "Please enter your national ID",
+      }));
+      return;
+    } else {
+      setFormErrors((prev) => ({ ...prev, nationalId: "" }));
     }
 
     if (!formData.password) {
@@ -97,54 +99,70 @@ function CreateTransporter({ onClose }) {
       setFormErrors((prev) => ({ ...prev, password: "" }));
     }
 
-    await createTransporter(formData);
+    await createUser(formData);
     onClose();
   };
 
   return (
     <div className="bg-white rounded-lg shadow-md p-6 space-y-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-xl font-bold">Create Transporter</h3>
+        <h3 className="text-xl font-bold">Create User</h3>
         <button onClick={onClose} className="p-2">
           <AiOutlineClose className="text-gray-500 hover:text-gray-700 text-xl" />
         </button>
       </div>
       <form onSubmit={handleSubmit} className="space-y-5">
-        {/* Full Name */}
-        <div className="flex flex-col gap-1">
-          <label htmlFor="name" className="text-sm font-medium">
-            Transporter Name
-          </label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            placeholder="John Doe"
-            className="w-full outline-0 border border-gray-300 focus:border-gray-500 rounded-md p-2 placeholder:text-sm"
-            value={formData.name}
-            onChange={handleChange}
-          />
-          {formErrors.name && (
-            <p className="text-red-500 text-xs">* {formErrors.name}</p>
-          )}
+        <div className="grid grid-col-1 sm:grid-cols-2 gap-4">
+          {/* First Name */}
+          <div className="flex flex-col gap-1">
+            <label htmlFor="firstName" className="text-sm font-medium">
+              First Name
+            </label>
+            <input
+              type="text"
+              id="firstName"
+              name="firstName"
+              placeholder="John"
+              className="w-full outline-0 border border-gray-300 focus:border-gray-500 rounded-md p-2 placeholder:text-sm"
+              value={formData.firstName}
+              onChange={handleChange}
+            />
+            {formErrors.firstName && (
+              <p className="text-red-500 text-xs">* {formErrors.firstName}</p>
+            )}
+          </div>
+          {/* Last Name */}
+          <div className="flex flex-col gap-1">
+            <label htmlFor="lastName" className="text-sm font-medium">
+              Last Name
+            </label>
+            <input
+              type="text"
+              id="lastName"
+              name="lastName"
+              placeholder="Doe"
+              className="w-full outline-0 border border-gray-300 focus:border-gray-500 rounded-md p-2 placeholder:text-sm"
+              value={formData.lastName}
+              onChange={handleChange}
+            />
+            {formErrors.lastName && <p className="text-red-500 text-xs">* {formErrors.lastName}</p>}
+          </div>
         </div>
-        {/* ID Number */}
+        {/* Email */}
         <div className="flex flex-col gap-1">
-          <label htmlFor="idNumber" className="text-sm font-medium">
-            ID Number
+          <label htmlFor="email" className="text-sm font-medium">
+            Email
           </label>
           <input
-            type="text"
-            id="idNumber"
-            name="idNumber"
-            placeholder="1234567890"
+            type="email"
+            id="email"
+            name="email"
+            placeholder="john.doe@example.com"
             className="w-full outline-0 border border-gray-300 focus:border-gray-500 rounded-md p-2 placeholder:text-sm"
-            value={formData.idNumber}
+            value={formData.email}
             onChange={handleChange}
           />
-          {formErrors.idNumber && (
-            <p className="text-red-500 text-xs">* {formErrors.idNumber}</p>
-          )}
+          {formErrors.email && <p className="text-red-500 text-xs">* {formErrors.email}</p>}
         </div>
         {/* Mobile Number */}
         <div className="flex flex-col gap-1">
@@ -164,35 +182,13 @@ function CreateTransporter({ onClose }) {
             <p className="text-red-500 text-xs">* {formErrors.mobileNumber}</p>
           )}
         </div>
-        {/* Email */}
-        <div className="flex flex-col gap-1">
-          <label htmlFor="email" className="text-sm font-medium">
-            Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="john.doe@example.com"
-            className="w-full outline-0 border border-gray-300 focus:border-gray-500 rounded-md p-2  placeholder:text-sm"
-            value={formData.email}
-            onChange={handleChange}
-          />
-          {formErrors.email && (
-            <p className="text-red-500 text-xs">* {formErrors.email}</p>
-          )}
-        </div>
         {/* Transporter Type - Individual or Company */}
         <div className="flex flex-col gap-1">
           <p className="text-sm font-medium mb-1">Transporter Type</p>
           <div className="grid grid-cols-2 gap-4">
             <div
               className={`cursor-pointer flex items-center gap-2 text-sm font-medium ps-2 border border-gray-300 rounded-md
-                ${
-                  formData.transportType === "individual"
-                    ? "bg-neutral-100"
-                    : ""
-                }`}
+                ${formData.transportType === "individual" ? "bg-neutral-100" : ""}`}
             >
               <input
                 type="radio"
@@ -203,18 +199,13 @@ function CreateTransporter({ onClose }) {
                 onChange={handleChange}
                 className="cursor-pointer"
               />
-              <label
-                htmlFor="individual"
-                className="cursor-pointer flex-1 py-2"
-              >
+              <label htmlFor="individual" className="cursor-pointer flex-1 py-2">
                 Individual
               </label>
             </div>
             <div
               className={`cursor-pointer flex items-center gap-2 text-sm font-medium ps-2 border border-gray-300 rounded-md
-                ${
-                  formData.transportType === "company" ? "bg-neutral-100" : ""
-                }`}
+                ${formData.transportType === "company" ? "bg-neutral-100" : ""}`}
             >
               <input
                 type="radio"
@@ -231,6 +222,24 @@ function CreateTransporter({ onClose }) {
             </div>
           </div>
         </div>
+        {/* National ID */}
+        <div className="flex flex-col gap-1">
+          <label htmlFor="nationalId" className="text-sm font-medium">
+            National ID
+          </label>
+          <input
+            type="text"
+            id="nationalId"
+            name="nationalId"
+            placeholder="1234567890"
+            className="w-full outline-0 border border-gray-300 focus:border-gray-500 rounded-md p-2 placeholder:text-sm"
+            value={formData.nationalId}
+            onChange={handleChange}
+          />
+          {formErrors.nationalId && (
+            <p className="text-red-500 text-xs">* {formErrors.nationalId}</p>
+          )}
+        </div>
         {/* Password */}
         <div className="flex flex-col gap-1">
           <label htmlFor="password" className="text-sm font-medium">
@@ -245,9 +254,7 @@ function CreateTransporter({ onClose }) {
             value={formData.password}
             onChange={handleChange}
           />
-          {formErrors.password && (
-            <p className="text-red-500 text-xs">* {formErrors.password}</p>
-          )}
+          {formErrors.password && <p className="text-red-500 text-xs">* {formErrors.password}</p>}
         </div>
         {/* Save btn */}
         <button
@@ -262,4 +269,4 @@ function CreateTransporter({ onClose }) {
   );
 }
 
-export default CreateTransporter;
+export default CreateUser;

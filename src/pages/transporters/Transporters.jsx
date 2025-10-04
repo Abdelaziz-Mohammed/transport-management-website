@@ -22,8 +22,8 @@ function Transporters() {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between gap-4">
-        <div className="space-y-1">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="space-y-1 max-sm:self-start">
           <h2 className="pageTitle">Transporters</h2>
           <p className="text-gray-600 text-sm">
             Manage your transporters and their details here.
@@ -32,7 +32,7 @@ function Transporters() {
         <button
           onClick={() => setIsCreateTransporterOpen(true)}
           className="flex items-center gap-1 bg-primary/95 text-white px-4 py-1.5 rounded-md
-          text-[15px] tracking-wide hover:bg-primary hoverEffect"
+          text-[15px] tracking-wide hover:bg-primary hoverEffect max-sm:self-end"
         >
           <FaUserPlus className="text-lg" />
           Create Transporter

@@ -3,7 +3,7 @@ import { createContext, useContext, useState } from "react";
 
 const TransportersContext = createContext(null);
 
-export function TransportersProvider({ children }) {
+export const TransportersProvider = ({ children }) => {
   const [transporters, setTransporters] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -27,6 +27,18 @@ export function TransportersProvider({ children }) {
       setTransporters((prev) => [...prev, res.data]);
     } catch (err) {
       setError("Failed to create transporter");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getTransporter = async (id) => {
+    setLoading(true);
+    try {
+      const res = await axios.get(`/api/Transporters/${id}`);
+      return res.data;
+    } catch (err) {
+      setError("Failed to fetch transporter");
     } finally {
       setLoading(false);
     }
@@ -64,6 +76,7 @@ export function TransportersProvider({ children }) {
         error,
         fetchTransporters,
         createTransporter,
+        getTransporter,
         updateTransporter,
         deleteTransporter,
       }}
@@ -71,6 +84,6 @@ export function TransportersProvider({ children }) {
       {children}
     </TransportersContext.Provider>
   );
-}
+};
 
 export const useTransporters = () => useContext(TransportersContext);
